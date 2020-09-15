@@ -66,15 +66,16 @@
 	box-sizing: border-box;
 	width: 45vw;
 	height: 80vh;
-	position: absolute;
 	top: 20%;
 	background: yellow;
 	margin-bottom: 50px;
+
 	box-shadow: 0px 15px 2px rgb(4, 4, 138);
 }
 
 body {
 	display: flex;
+	width: 100vw;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
@@ -93,4 +94,35 @@ body {
 .p2_turn {
 	color: blue;
 	background: rgb(42, 124, 247);
+}
+
+h3 {
+	align-self: center;
+	justify-self: flex-start;
+	font-size: 2em;
+	margin-bottom: 50px;
+	font-weight: strong;
+}
+h2 {
+	width: 25vw;
+	display: flex;
+	flex-wrap: wrap-reverse;
+	justify-content: space-evenly;
+	align-items: center;
+	margin-bottom: 0;
+}
+
+span {
+	font-size: 3em;
+}
+
+span:nth-of-type(3n) {
+	color: yellow;
+}
+
+span:nth-of-type(3n-1) {
+	color: red;
+}
+span:nth-of-type(3n-2) {
+	color: blue;
 }
