@@ -10,7 +10,10 @@ let HEIGHT = 6;
 
 let currPlayer = 1; // active player: 1 or 2
 const board = []; // array of rows, each row is array of cells  (board[y][x])
-const slide = document.querySelector('audio');
+const slide = document.querySelector('#slide');
+const p1 = document.querySelector('#player1');
+const p2 = document.querySelector('#player2');
+const fight = document.querySelector('#fight');
 const playerTurn = document.querySelector('h3');
 playerTurn.innerText = `It's Player ${currPlayer}'s turn!`;
 playerTurn.setAttribute('class', `p${currPlayer}_turn`);
@@ -111,6 +114,11 @@ function handleClick(evt) {
 
 	// check for win
 	if (checkForWin()) {
+		if (currPlayer === 1) {
+			p1.play();
+		} else if (currPlayer === 2) {
+			p2.play();
+		}
 		setTimeout(function() {
 			endGame(`Player ${currPlayer} wins!`);
 		}, 250);
@@ -166,9 +174,12 @@ function checkForWin() {
 		}
 	}
 }
-
+document.addEventListener('load', function() {
+	fight.play();
+});
 makeBoard();
 makeHtmlBoard();
+
 const topPieces = document.querySelectorAll('#column-top td');
 const topRow = document.querySelector('#column-top');
 for (let i = 0; i < topPieces.length; i++) {
