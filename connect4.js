@@ -11,6 +11,9 @@ let HEIGHT = 6;
 let currPlayer = 1; // active player: 1 or 2
 const board = []; // array of rows, each row is array of cells  (board[y][x])
 const slide = document.querySelector('audio');
+const playerTurn = document.querySelector('h3');
+playerTurn.innerText = `It's Player ${currPlayer}'s turn!`;
+playerTurn.setAttribute('class', `p${currPlayer}_turn`);
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -49,6 +52,7 @@ function makeHtmlBoard() {
 		for (let x = 0; x < WIDTH; x++) {
 			const cell = document.createElement('td');
 			cell.setAttribute('id', `${y}-${x}`);
+			cell.setAttribute('class', 'space');
 			row.append(cell);
 		}
 		htmlBoard.append(row);
@@ -109,7 +113,7 @@ function handleClick(evt) {
 	if (checkForWin()) {
 		setTimeout(function() {
 			endGame(`Player ${currPlayer} wins!`);
-		}, 25);
+		}, 250);
 	}
 
 	// check for tie
@@ -119,7 +123,9 @@ function handleClick(evt) {
 	}
 	setTimeout(function() {
 		currPlayer = currPlayer === 1 ? 2 : 1;
-	}, 51);
+		playerTurn.innerText = `It's Player ${currPlayer}'s turn!`;
+		playerTurn.setAttribute('class', `p${currPlayer}_turn`);
+	}, 251);
 }
 
 // for (topPiece of topPieces) {
