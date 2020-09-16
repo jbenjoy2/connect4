@@ -75,10 +75,16 @@
 body {
 	display: flex;
 	width: 100%;
+
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background: rgb(42, 124, 247);
+}
+
+html {
+	background: linear-gradient(#000, #8f8f8f);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 }
 
 #game td {
@@ -87,12 +93,12 @@ body {
 
 .p1_turn {
 	color: rgb(152, 8, 8);
-	background: rgb(42, 124, 247);
+	background: rgb(42, 124, 247, 0);
 }
 
 .p2_turn {
 	color: blue;
-	background: rgb(42, 124, 247);
+	background: rgba(42, 124, 247, 0);
 }
 
 h3 {
