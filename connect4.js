@@ -157,6 +157,7 @@ function endGame(msg) {
 			buttons.classList.remove('playing');
 			//re-add the start button
 			buttons.append(start);
+			start.innerText = 'Start Next Round';
 			//update round number
 			roundCounter++;
 			round.innerText = `Round ${roundCounter}`;
