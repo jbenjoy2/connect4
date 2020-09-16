@@ -38,24 +38,29 @@
 
 /* column-top is table row of clickable areas for each column */
 
-#column-top td {
+#board #column-top td {
 	border: dashed 1px lightgray;
 	border-radius: 0;
-	background: white;
+	background: yellow;
+	border: none;
 }
 
-#column-top .p1:hover {
+#board #column-top .p1:hover {
 	background-color: red;
 	border-radius: 50%;
 	cursor: pointer;
 	border: solid 1px red;
+	width: 5px;
+	height: 5px;
 }
 
-#column-top .p2:hover {
+#board #column-top .p2:hover {
 	background-color: blue;
 	border-radius: 50%;
 	cursor: pointer;
 	border: solid 1px blue;
+	width: 5px;
+	height: 5px;
 }
 #game {
 	border: solid black 2px;
@@ -94,18 +99,20 @@ html {
 .p1_turn {
 	color: rgb(152, 8, 8);
 	background: rgb(42, 124, 247, 0);
+	font-size: 1em;
 }
 
 .p2_turn {
 	color: blue;
 	background: rgba(42, 124, 247, 0);
+	font-size: 1em;
 }
 
 h3 {
 	align-self: center;
 	justify-self: flex-start;
 	font-size: 2em;
-	margin-bottom: 50px;
+	margin-bottom: 5px;
 	font-weight: strong;
 }
 h2 {
@@ -156,4 +163,20 @@ button {
 
 .playing {
 	justify-content: center;
+}
+
+#round {
+	color: blue;
+	font-family: 'Permanent Marker', cursive;
+	font-size: 2em;
+	margin: 2px;
+}
+
+#round .hidden {
+	/* display: inline; */
+}
+.hidden {
+	color: rgba(42, 124, 247, 0);
+	margin-bottom: 0;
+	/* display: inline; */
 }

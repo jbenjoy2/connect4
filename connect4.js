@@ -15,10 +15,13 @@ const p1 = document.querySelector('#player1');
 const p2 = document.querySelector('#player2');
 const fight = document.querySelector('#fight');
 const tie = document.querySelector('#tie');
-const playerTurn = document.querySelector('h3');
+const turn = document.querySelector('h3');
+let playerTurn = document.querySelector('h3 span');
+const round = document.querySelector('#round');
 const start = document.querySelector('#start');
 const mute = document.querySelector('#mute');
 const buttons = document.querySelector('.buttons');
+let roundCounter = 1;
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -45,8 +48,10 @@ function startGame() {
 	makeBoard();
 	makeHtmlBoard();
 	fight.play();
+	currPlayer = 1;
 	playerTurn.innerText = `It's Player ${currPlayer}'s turn!`;
 	playerTurn.setAttribute('class', `p${currPlayer}_turn`);
+	round.innerText = `Round ${roundCounter}`;
 }
 
 function makeBoard() {
@@ -113,11 +118,40 @@ function placeInTable(y, x) {
 	cell.append(playedPiece);
 }
 
-/** endGame: announce game end */
+/** endGame: announce game end  and reset board **/
 
 function endGame(msg) {
 	if (!alert(msg)) {
-		window.location.reload();
+		const spaces = document.querySelectorAll('.space');
+		const htmlBoard = document.getElementById('board');
+		const rows = htmlBoard.querySelectorAll('tr');
+		//remove all rows fromw html board
+		for (let space of spaces) {
+			if (space.hasChildNodes()) {
+				const toRemove = space.querySelector('.piece');
+				toRemove.remove();
+			}
+		}
+		//reset js board
+		board.length = 0;
+		for (row of rows) {
+			row.remove();
+		}
+		round.classList.add('hidden');
+		turn.classList.add('hidden');
+
+		//remove player turn span
+		setTimeout(function() {
+			playerTurn.setAttribute('class', `hidden`);
+		}, 251);
+
+		//remove mute button position change
+		buttons.classList.remove('playing');
+		//re-add the start button
+		buttons.append(start);
+
+		roundCounter++;
+		round.innerText = `Round ${roundCounter}`;
 	}
 }
 
@@ -206,8 +240,10 @@ function checkForWin() {
 }
 start.addEventListener('click', function() {
 	startGame();
-	start.remove();
 	buttons.classList.add('playing');
+	if (buttons.classList.contains('playing')) {
+		start.remove();
+	}
 
 	const topPieces = document.querySelectorAll('#column-top td');
 	const topRow = document.querySelector('#column-top');
