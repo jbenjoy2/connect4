@@ -127,6 +127,16 @@ span {
 	font-size: 3em;
 }
 
+.counts {
+	display: flex;
+	justify-content: space-between;
+}
+
+.count {
+	margin: 50px;
+	margin-top: 0;
+}
+
 .title:nth-of-type(3n) {
 	color: yellow;
 }
@@ -172,9 +182,6 @@ button {
 	margin: 2px;
 }
 
-#round .hidden {
-	/* display: inline; */
-}
 .hidden {
 	color: rgba(42, 124, 247, 0);
 	margin-bottom: 0;

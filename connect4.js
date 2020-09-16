@@ -8,6 +8,9 @@
 let WIDTH = 7;
 let HEIGHT = 6;
 
+let p1Wins = 0;
+let p2Wins = 0;
+
 let currPlayer = 1; // active player: 1 or 2
 const board = []; // array of rows, each row is array of cells  (board[y][x])
 const slide = document.querySelector('#slide');
@@ -21,6 +24,8 @@ const round = document.querySelector('#round');
 const start = document.querySelector('#start');
 const mute = document.querySelector('#mute');
 const buttons = document.querySelector('.buttons');
+const p1count = document.querySelector('#p1wins');
+const p2count = document.querySelector('#p2wins');
 let roundCounter = 1;
 
 /** makeBoard: create in-JS board structure:
@@ -52,6 +57,8 @@ function startGame() {
 	playerTurn.innerText = `It's Player ${currPlayer}'s turn!`;
 	playerTurn.setAttribute('class', `p${currPlayer}_turn`);
 	round.innerText = `Round ${roundCounter}`;
+	p1count.innerText = `P1:${p1Wins}`;
+	p2count.innerText = `P2:${p2Wins}`;
 }
 
 function makeBoard() {
@@ -121,37 +128,50 @@ function placeInTable(y, x) {
 /** endGame: announce game end  and reset board **/
 
 function endGame(msg) {
-	if (!alert(msg)) {
-		const spaces = document.querySelectorAll('.space');
-		const htmlBoard = document.getElementById('board');
-		const rows = htmlBoard.querySelectorAll('tr');
-		//remove all rows fromw html board
-		for (let space of spaces) {
-			if (space.hasChildNodes()) {
-				const toRemove = space.querySelector('.piece');
-				toRemove.remove();
+	if (p1Wins < 3 && p2Wins < 3) {
+		if (!alert(msg)) {
+			const spaces = document.querySelectorAll('.space');
+			const htmlBoard = document.getElementById('board');
+			const rows = htmlBoard.querySelectorAll('tr');
+			//remove all rows fromw html board
+			for (let space of spaces) {
+				if (space.hasChildNodes()) {
+					const toRemove = space.querySelector('.piece');
+					toRemove.remove();
+				}
 			}
+			//reset js board
+			board.length = 0;
+			for (row of rows) {
+				row.remove();
+			}
+			round.classList.add('hidden');
+			turn.classList.add('hidden');
+
+			//remove player turn span
+			setTimeout(function() {
+				playerTurn.setAttribute('class', `hidden`);
+			}, 251);
+
+			//remove mute button position change
+			buttons.classList.remove('playing');
+			//re-add the start button
+			buttons.append(start);
+			//update round number
+			roundCounter++;
+			round.innerText = `Round ${roundCounter}`;
+			p1count.innerText = `P1:${p1Wins}`;
+			p2count.innerText = `P2:${p2Wins}`;
 		}
-		//reset js board
-		board.length = 0;
-		for (row of rows) {
-			row.remove();
+	}
+	if (p1Wins >= 3) {
+		if (!alert('Player1 has won the battle')) {
+			window.location.reload();
 		}
-		round.classList.add('hidden');
-		turn.classList.add('hidden');
-
-		//remove player turn span
-		setTimeout(function() {
-			playerTurn.setAttribute('class', `hidden`);
-		}, 251);
-
-		//remove mute button position change
-		buttons.classList.remove('playing');
-		//re-add the start button
-		buttons.append(start);
-
-		roundCounter++;
-		round.innerText = `Round ${roundCounter}`;
+	} else if (p2Wins >= 3) {
+		if (!alert('Player2 has won the battle')) {
+			window.location.reload();
+		}
 	}
 }
 
@@ -177,8 +197,10 @@ function handleClick(evt) {
 	if (checkForWin()) {
 		if (currPlayer === 1) {
 			p1.play();
+			p1Wins++;
 		} else if (currPlayer === 2) {
 			p2.play();
+			p2Wins++;
 		}
 		setTimeout(function() {
 			endGame(`Player ${currPlayer} wins!`);
