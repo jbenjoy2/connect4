@@ -86,7 +86,7 @@ body {
 }
 
 .p1_turn {
-	color: red;
+	color: rgb(152, 8, 8);
 	background: rgb(42, 124, 247);
 }
 
@@ -114,13 +114,26 @@ span {
 	font-size: 3em;
 }
 
-span:nth-of-type(3n) {
+.title:nth-of-type(3n) {
 	color: yellow;
 }
 
-span:nth-of-type(3n-1) {
+.title:nth-of-type(3n-1) {
 	color: red;
 }
-span:nth-of-type(3n-2) {
+.title:nth-of-type(3n-2) {
 	color: blue;
+}
+
+.mortal {
+	color: rgb(152, 8, 8);
+	font-family: 'Permanent Marker', cursive;
+}
+#blood {
+	border-bottom: solid 3px rgb(152, 8, 8);
+}
+
+button {
+	justify-self: flex-start;
+	margin-bottom: 5px;
 }

@@ -14,13 +14,21 @@ const slide = document.querySelector('#slide');
 const p1 = document.querySelector('#player1');
 const p2 = document.querySelector('#player2');
 const fight = document.querySelector('#fight');
+const tie = document.querySelector('#tie');
 const playerTurn = document.querySelector('h3');
-playerTurn.innerText = `It's Player ${currPlayer}'s turn!`;
-playerTurn.setAttribute('class', `p${currPlayer}_turn`);
+const start = document.querySelector('button');
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
  */
+
+function startGame() {
+	makeBoard();
+	makeHtmlBoard();
+	fight.play();
+	playerTurn.innerText = `It's Player ${currPlayer}'s turn!`;
+	playerTurn.setAttribute('class', `p${currPlayer}_turn`);
+}
 
 function makeBoard() {
 	// TODO: set "board" to empty HEIGHT x WIDTH matrix array
@@ -127,7 +135,10 @@ function handleClick(evt) {
 	// check for tie
 	// TODO: check if all cells in board are filled; if so call, call endGame
 	if (board.every((row) => row.every((cell) => cell))) {
-		return endGame('TIE!');
+		tie.play();
+		setTimeout(function() {
+			return endGame('TIE!');
+		}, 201);
 	}
 	setTimeout(function() {
 		currPlayer = currPlayer === 1 ? 2 : 1;
@@ -174,26 +185,24 @@ function checkForWin() {
 		}
 	}
 }
-document.addEventListener('load', function() {
-	fight.play();
-});
-makeBoard();
-makeHtmlBoard();
-
-const topPieces = document.querySelectorAll('#column-top td');
-const topRow = document.querySelector('#column-top');
-for (let i = 0; i < topPieces.length; i++) {
-	topPieces[i].classList.add(`p${currPlayer}`);
-}
-
-topRow.addEventListener('click', function(e) {
-	for (piece of topPieces) {
-		if (piece.classList.contains('p1')) {
-			piece.classList.remove('p1');
-			piece.classList.add('p2');
-		} else {
-			piece.classList.remove('p2');
-			piece.classList.add('p1');
-		}
+start.addEventListener('click', function() {
+	startGame();
+	start.remove();
+	const topPieces = document.querySelectorAll('#column-top td');
+	const topRow = document.querySelector('#column-top');
+	for (let i = 0; i < topPieces.length; i++) {
+		topPieces[i].classList.add(`p${currPlayer}`);
 	}
+
+	topRow.addEventListener('click', function(e) {
+		for (piece of topPieces) {
+			if (piece.classList.contains('p1')) {
+				piece.classList.remove('p1');
+				piece.classList.add('p2');
+			} else {
+				piece.classList.remove('p2');
+				piece.classList.add('p1');
+			}
+		}
+	});
 });
