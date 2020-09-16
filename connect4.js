@@ -16,12 +16,31 @@ const p2 = document.querySelector('#player2');
 const fight = document.querySelector('#fight');
 const tie = document.querySelector('#tie');
 const playerTurn = document.querySelector('h3');
-const start = document.querySelector('button');
+const start = document.querySelector('#start');
+const mute = document.querySelector('#mute');
+const buttons = document.querySelector('.buttons');
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
  */
 
+mute.addEventListener('click', function() {
+	if (!mute.classList.contains('muted')) {
+		tie.muted = true;
+		p1.muted = true;
+		p2.muted = true;
+		fight.muted = true;
+		slide.muted = true;
+		mute.classList += 'muted';
+	} else {
+		tie.muted = false;
+		p1.muted = false;
+		p2.muted = false;
+		fight.muted = false;
+		slide.muted = false;
+		mute.classList.remove('muted');
+	}
+});
 function startGame() {
 	makeBoard();
 	makeHtmlBoard();
@@ -188,6 +207,8 @@ function checkForWin() {
 start.addEventListener('click', function() {
 	startGame();
 	start.remove();
+	buttons.classList.add('playing');
+
 	const topPieces = document.querySelectorAll('#column-top td');
 	const topRow = document.querySelector('#column-top');
 	for (let i = 0; i < topPieces.length; i++) {

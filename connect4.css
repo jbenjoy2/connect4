@@ -143,3 +143,17 @@ button {
 	justify-self: flex-start;
 	margin-bottom: 5px;
 }
+
+.buttons {
+	display: flex;
+	justify-content: space-between;
+	width: 20vw;
+}
+
+.muted {
+	background-color: red;
+}
+
+.playing {
+	justify-content: center;
+}
